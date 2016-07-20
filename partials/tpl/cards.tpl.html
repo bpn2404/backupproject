@@ -1,0 +1,63 @@
+<div class="cards" id="cards">  
+    <div class="row">
+        <div class="col-md-12">            
+                <div id="canvasWrapper" ng-controller="svgCtrl" ng-init="drawDetails()">
+
+                    <div id="imageManipulation" class="cursor-controls-wrapper" ng-controller="imageManipulationCtrl">
+
+                        <!--<div id="dial-value">0</div>
+
+                        <div id="info">DRAG DIAL TO ENLARGE</div>-->
+
+                        <div id="null-object"></div>
+
+                        <div id="circle1"></div>
+
+                        <div id="circle2"></div>
+
+
+                        <svg id="svg-node" version="1.1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="305px" height="305px" viewBox="0 0 310 310">
+                            <defs>
+                            </defs>
+                            <path id="outline" fill="none" stroke="#ecf0f1" stroke-width="1" stroke-miterlimit="10" d="M4.5,153.5c0-82.8,67.2-150,150-150s150,67.2,150,150" />
+
+                            <path id="dial-line-bg" fill="none" stroke="#ecf0f1" stroke-width="18" stroke-miterlimit="10" d="M23.1,153.5c0-72.6,58.8-131.4,131.4-131.4s131.4,58.8,131.4,131.4" />
+
+                            <path id="dial-line" fill="none" opacity="0.5" stroke="#40C3A1" stroke-width="18" stroke-miterlimit="10" d="M23.1,153.5c0-72.6,58.8-131.4,131.4-131.4s131.4,58.8,131.4,131.4" />
+
+
+                            <path id="outline_3_" fill="none" stroke="#ecf0f1" stroke-width="1" stroke-miterlimit="10" d="M301.6,185c-13.7,68.7-74.4,120.5-147.1,120.5c-74,0-135.6-53.7-147.8-124.2" />
+
+                            <path id="dial-line-bg_3_" fill="none" stroke="#ecf0f1" stroke-width="18" stroke-miterlimit="10" d="M283.3,181.5c-12.1,60.1-65.1,105.4-128.8,105.4c-65,0-118.9-47.1-129.5-109" />
+
+                            <path id="dial-line_3_" fill="none" opacity="0.5" stroke="#40C3A1" stroke-width="18" stroke-miterlimit="10" d="M283.3,181.5c-12.1,60.1-65.1,105.4-128.8,105.4c-65,0-118.9-47.1-129.5-109" />
+
+                        </svg>
+
+                        <div id='scaleContainer'>
+                        </div>
+                        <div id='rotationContainer'>
+                        </div>
+
+                    </div>
+
+                    <!-- MAIN IMAGE SVG -->
+                    <div id="mainSvgWrapper">
+
+                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="703" height="892" id="mainSvg" >
+                        </svg>
+
+                    </div>
+                    
+                    <!--<button type="button" class="btn btn-default open-pop-up-btn" ng-click="openEditPopUp()">
+      <span class="glyphicon glyphicon-new-window"></span></button>-->
+                    
+                    <button type="button" class="btn btn-circle btn-lg" ng-click="openEditPopUp()"><i class="glyphicon glyphicon-plus"></i></button>
+                    
+                </div>
+           
+        </div>
+        <!-- //. col-md-12 -->
+
+    </div>
+    <!-- //. row -->

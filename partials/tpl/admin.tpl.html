@@ -1,0 +1,107 @@
+<!-- NAV TEMPORARILY HERE, later move to the admin pages -->
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#/login">Spectra Fund Forum 2015 - Admin</a>
+        </div>
+        <div id="navbar" class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+                <li ng-if="authenticated"><a href="#/admin">Admin Home</a>
+                </li>
+                <li ng-if="authenticated"><a href="#/createGame">Create / Schedule game</a>
+                </li>
+                <li ng-if="authenticated"><a href="#/splashScreen">Splash screen</a>
+                </li>
+                <li ng-if="authenticated"><a href="#/register">Register participant</a>
+                </li>
+                <li ng-if="authenticated"><a href="#/login">Log out</a>
+                </li>
+
+            </ul>
+
+        </div>
+        <!--/.nav-collapse -->
+    </div>
+</nav>
+
+
+<div class="margin-top-100" ng-init="setUpAdminScreen()">
+    <div class="row">
+        <h2>Register screen - set up game for registration</h2>
+        <div class="col-md-6">
+            <form id="selectGameForm" class="selectGameForm">
+                <div class="row">
+                    <div class="col-xs-8 col-sm-6">
+                        <label>Select the game in the drop down to set this game on the register screen</label>
+                    </div>
+                    <div class="col-xs-4 col-sm-6">
+                        <select id="selectGame" required class="form-control selectpicker" name="games" ng-model="selectedGame" ng-change="setGameOnRegisterScreen()" ng-options="game as game.name for game in games" ng-init="selectedGame = games[0]" class="required" required>
+                            <option value="default" disabled="disabled">Select one--</option>
+                        </select>
+                    </div>
+                </div>
+
+            </form>
+
+        </div>
+
+        <div class="col-md-6">
+            <p><strong>Current game on register screen</strong>
+            </p>
+            <img id="adminGamePic" src="images/none.png" width="124" height="93">
+        </div>
+
+    </div>
+    <div class="row margin-top-20">
+        <div class="col-md-6">
+            <h2>Splash screen - Start current game</h2>
+            <p><strong>This button will start the next scheduled game which is current on the splash screen, after pressing the button there will be 5 seconds delay before game starts.</strong>
+            </p>
+            <button type="button" class="btn btn-submit" ng-click="startCurrentGame()">Start current game</button>
+            <p ng-show="showGameStarts">Game starts</p>
+        </div>
+    </div>
+    
+     <!--ALL ENTRANTS FOR ALL GAMES -->
+    <div class="row margin-top-20">
+        <div class="col-md-12">
+            <h2>All registered entrants in all games</h2>
+           
+            <table st-table="allGamesAllEntrants" st-safe-src="rowCollection" class="table table-striped">
+			<thead>
+			<tr>
+				<th st-sort="f_name">first name</th>
+				<th st-sort="l_name">last name</th>
+				<th st-sort="email">email</th>
+				<th st-sort="g_name">game</th>
+				<th st-sort="g_name">Delete</th>
+			</tr>
+			<tr>
+				<th colspan="5"><input st-search="" class="form-control" placeholder="global search ..." type="text"/></th>
+			</tr>
+			</thead>
+			<tbody>
+			<tr ng-repeat="row in allGamesAllEntrants">
+				<td>{{row.f_name}}</td>
+				<td>{{row.l_name}}</td>
+				<td>{{row.email}}</td>
+				<td>{{row.g_name}}</td>
+				<td>
+				<button type="button" ng-click="removeEntrant(row)" class="btn btn-sm btn-danger">
+					<i class="glyphicon glyphicon-remove-circle">
+					</i>
+				</button>
+				</td>
+			</tr>
+			</tbody>
+		</table>
+        </div>
+    </div>
+     <!--/. ALL ENTRANTS FOR ALL GAMES -->
+</div>

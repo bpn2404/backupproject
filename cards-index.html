@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html lang="en" ng-app="spectraDBrestoreClient" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html lang="en" ng-app="spectraDBrestoreClient" class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html lang="en" ng-app="spectraDBrestoreClient" class="no-js lt-ie9"> <![endif]-->
+<html lang="en" ng-app="Cards" class="no-js">
+  <head>
+    <meta charset="UTF-8">
+    <title>folioCards - style guide</title>
+      
+<!--        <link rel="stylesheet" href="https://storage.googleapis.com/code.getmdl.io/1.0.6/material.indigo-pink.min.css">
+        <script src="https://storage.googleapis.com/code.getmdl.io/1.0.6/material.min.js"></script>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">-->
+      
+            <!-- Custom styles for this template -->
+        <link href="css/style.css" rel="stylesheet">
+
+        <link rel="stylesheet" type="text/css" href="css/dropzone.css" />
+
+        <!-- Animate CSS -->
+        <link rel="stylesheet" type="text/css" href="css/animate.css" />
+
+        <!-- Bootstrap core CSS -->
+        <link href="libs/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+        <!-- Fonts  -->
+        <link rel="stylesheet" type="text/css" href="fonts/futura-Light-Light-Italic-Book-Book-Italic/stylesheet.css" />
+        <link rel="stylesheet" type="text/css" href="bower_components/font-awesome/css/font-awesome.css" />
+        <link rel="stylesheet" type="text/css" href="bower_components/ng-dialog/css/ngDialog.css"/>
+        <link rel="stylesheet" type="text/css" href="css/popUp.css" />
+        <link rel="stylesheet" href="bower_components/ngScrollbar/dist/ng-scrollbar.css" >
+    
+    
+    
+  </head>
+
+
+
+<div id="popUp" class="popUp">
+    <section>
+        <header class="popUp-header">Folio.Card Builder
+        </header>
+        <div id="dots" class="dots">
+            <div class="dotGroup" ng-click="logOutBtnClick()"> <span id="dot1">1</span>
+                <span id="dot1caption" class="dotCaption">LOGIN</span>
+            </div>
+            <div class="dotGroup" ng-click="setEditState()"> <span id="dot2">2</span>
+                <span id="dot2caption" class="dotCaption">CONFIG</span>
+            </div>
+            <div class="dotGroup" ng-click="setSummaryState()"> <span id="dot3">3</span>
+                <span id="dot3caption" class="dotCaption">SUBMIT</span>
+            </div>
+        </div>
+        <!-- Main pop up content area -->
+        <article id="popUpContent" class="popUp-content" ng-init="setPopUpState()">
+
+            <!-- create / edit buttons -->
+            <div class="create-edit-buttons" ng-show="editState == true || summaryState == true || selectForEdit == true">
+                <a href="" ng-click="onNewButtonClick()">NEW</a>
+                <a href="" ng-click="onEditButtonClick()">EXISTING</a>
+            </div>
+
+            <div ng-show="error" class="alert alert-danger">{{error}}</div>
+            <div ng-show="success" class="alert alert-success">{{success}}</div>
+
+
+            <!-- LOGIN STATE - show when "showLoginState is set to true" -->
+            <div class="login-form-wrapper clearfix" ng-show="showLoginState == true">
+
+                <form accept-charset="utf-8" autocomplete="off" role="loginForm" name="loginForm" class="form-vertical" autocomplete="off">
+                    <div class="form-group ">
+                        <label for="username" class="sr-only">User name</label>
+                        <input type="text" class="form-control" name="username" id="username" placeholder="User name" tabindex="1" autocomplete="off" required ng-model="userName" ng-bind="userName" ng-keypress="onLoginKeyPress($event)"/>
+                    </div>
+                    <div class="form-group ">
+                        <label for="password" class="sr-only">Password</label>
+                        <input type="password" class="form-control" name="password" id="password" placeholder="Password" tabindex="2" type="password" autocomplete="off" required ng-model="password" ng-bind="password" ng-keypress="onLoginKeyPress($event)"/>
+                    </div>
+                </form>
+            </div>
+
+
+            <!-- EDIT FORM STATE - show when "editState is set to true" -->
+            <form accept-charset="utf-8" autocomplete="off" role="modelForm" name="modelForm" class="form-vertical model-form" autocomplete="off"  ng-show="editState == true">
+                <div class="form-group">
+                    <label for="modelName" class="sr-only">Model name</label>
+                    <input type="text" class="form-control model-name-input" name="modelName" id="modelName" placeholder="Model name" tabindex="1" autocomplete="off" required ng-model="currentModel.modelName" ng-change="onModelNameChange()" />
+                </div>
+                <!-- Form columns -->
+                <div class="form-columns-group">
+
+                    <!-- Form Left Column -->
+                    <div class="form-left-colum">
+                        <div class="form-group">
+                            <label for="shoue">Height:</label> <span>{{heightDisplay}}</span>
+                            <input type="range" orient="vertical" min="4.50" max="6.90" step="0.05" ng-model="height" ng-bind="height" ng-change="onHeightChange()" />
+
+                        </div>                        
+                            <span id="silhouette-bust-label">{{bust}}&quot;</span>                        
+                            <span id="silhouette-waist-label">{{waist}}&quot;</span>                        
+                            <span id="silhouette-hips-label">{{hips}}&quot;</span>                        
+                            <span id="silhouette-shoes-label">{{shoes}}&quot;</span>                        
+                    </div>
+                    <!-- ./Form Left Column -->
+
+                    <div class="form-rigth-colum">
+                        <div class="form-group">
+                            <label for="hairColor">Hair:</label>
+                            <select id="hairColor" required class="form-control selectpicker" name="hairColor" ng-model="hairColor" ng-change="onHairChange()" ng-options="color as color for color in hairColors" class="required" required>
+                                <option value="default" disabled="disabled">Select one--</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="eyesColor">Eyes:</label>
+                            <select id="eyesColor" required class="form-control selectpicker" name="eyesColor" ng-model="eyesColor" ng-change="onEyesChange()" ng-options="eyeColor as eyeColor for eyeColor in eyesColors" class="required" required>
+                                <option value="default" disabled="disabled">Select one--</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="bust">Bust:</label>
+                            <input type="range" name="bust" min="20" max="40" step="0.5" ng-model="bust" ng-bind="bust" ng-change="onBustChange()">
+
+                        </div>
+                        <div class="form-group">
+                            <label for="waist">Waist:</label>
+                            <input type="range" name="waist" min="20" max="30" step="0.5" ng-model="waist" ng-bind="waist" ng-change="onWaistChange()">
+
+                        </div>
+                        <div class="form-group">
+                            <label for="hips">Hips:</label>
+                            <input type="range" name="hips" min="20" max="40" step="0.5" ng-model="hips" ng-bind="hips" ng-change="onHipsChange()">
+
+                        </div>
+                        <div ng-controller="SomeCtrl">
+
+                            <div class="dropzone" dropzone="dropzoneConfig"></div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="shoes">Shoes:</label>
+                            <input type="range" name="shoes" min="4" max="10" step="0.5" ng-model="shoes" ng-bind="shoes" ng-change="onShoesChange()">
+
+                        </div>
+
+                    </div>
+                    <!-- ./form-rigth-colum -->
+                </div>
+
+            </form>
+
+
+            <!-- ./Model-form in edit state -->
+
+            <!-- SUMMARY STATE - show when "summaryState is set to true" -->
+            <div ng-show="summaryState == true" class="select-edit-table-wrapper clearfix">
+                <!-- columns -->
+                <div class="summary-columns-group clearfix">
+                    <!-- Left Column -->
+                    <div class="summary-left-colum">
+                        <p>
+                            <label>Model name</label> <span>{{currentModel.modelName}}</span>
+                        </p>
+                        <ul>
+                            <li>
+                                <p>
+                                    <label>Height:</label> <span>{{heightDisplay}}</span>
+                                </p>
+                            </li>
+                            <li>
+                                <p>
+                                    <label>Hair:</label> <span>{{hairColor}}</span>
+                                </p>
+                            </li>
+                            <li>
+                                <p>
+                                    <label>Eyes:</label> <span>{{eyesColor}}</span>
+                                </p>
+                            </li>
+                            <li>
+                                <p>
+                                    <label>Bust:</label> <span>{{bust}}"</span>
+                                </p>
+                            </li>
+                            <li>
+                                <p>
+                                    <label>Waist:</label> <span>{{waist}}"</span>
+                                </p>
+                            </li>
+                        </ul>
+
+                    </div>
+                    <div id="summaryRightCol" class="summary-right-colum">
+                        <p>
+                            <label>Ref:</label> <span>ref</span>
+                        </p>
+                        <p>
+                            <label>Hips:</label> <span>{{hips}}"</span>
+                        </p>
+                        <p>
+                            <label>Shoes:</label> <span>{{shoes}}"</span>
+                        </p>
+                        <div class="thumbs-wrapper">
+                            <img id="thumb1" width="100" height="100" />
+                            <img id="thumb2" width="100" height="100" />
+                        </div>
+                    </div>
+
+                    <!-- ./Form Right Column -->
+                </div>
+                <div class="summary-columns-group clearfix">
+                    <div class="summary-left-colum">
+                        <div class="form-group">
+                            <label for="quantity">Quantity:</label>
+                            <select id="quantity" required class="form-control selectpicker" name="quantity" ng-model="quantity" ng-change="onQuantityChange()" ng-options="value as value for value in quantities" ng-selected="quantities[0]">
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="status">Status:</label>
+                            <select id="status" required class="form-control selectpicker" name="status" ng-model="status" ng-change="onStatusChange()" ng-options="status as status for status in statuses">
+                            </select>
+                        </div>
+                    </div>
+                    <div id="summaryRightCol" class="summary-right-colum">
+                        <div class="form-group">
+                            <label for="deliveryAddress">Delivery address:</label>
+                            <select id="deliveryAddress" required class="form-control selectpicker" name="deliveryAddress" ng-model="deliveryAddress" ng-change="onDeliveryAddressChange()" ng-options="value as value for value in deliveryAddresses" ng-selected="deliveryAddresses[0]">
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="emailPdf">Email me a PDF:</label>
+                            <select id="emailPdf" required class="form-control selectpicker" name="emailPdf" ng-model="emailPdf" ng-change="onStatusChange()" ng-options="emailPdf as emailPdf for emailPdf in emailPdfOptions">
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SELECT FOR EDIT STATE - show when "selectForEdit is set to true" -->
+            <div class="select-edit-table-wrapper clearfix scrollme" is-bar-shown="true" ng-scrollbar ng-show="selectForEdit == true">
+                <table st-table="modelPersons" st-safe-src="rowCollection" class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th colspan="5">
+                                <input st-search="" class="form-control" placeholder="global search ..." type="text" />
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="row in modelPersons">
+                            <td><img class="model-table-thumbnail" width="25" height="25" ng-src="images/uploads/{{row.uploadedFrontImgName}}" />
+                            </td>
+                            <td>{{row.modelName}}</td>
+                            <td>
+                                <button type="button" ng-click="onEditModelPersonButtonClick(row)" class="btn btn-sm btn-success">
+                                    <i class="glyphicon glyphicon-edit">
+					</i>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+
+        </article>
+        <!-- ./Main pop up content area -->
+        <footer><a href="" tabindex="5" ng-disabled="loginForm.$invalid && popUpState == 'loginState'" ng-show="showComfortIndicatorState == false" ng-click="onNextSubbmitClick()">{{footerButtonText}}</a>
+        </footer>
+    </section>
+</div>
